@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Input} from "reactstrap";
 
 export class Counter extends Component {
   static displayName = Counter.name;
@@ -18,6 +19,13 @@ export class Counter extends Component {
   render() {
     return (
       <div>
+          <select>
+              <option value="grapefruit">Грейпфрут</option>
+              <option value="lime">Лайм</option>
+              <option selected value="coconut">Кокос</option>
+              <option value="mango">Манго</option>
+          </select>
+          
         <h1>Counter</h1>
 
         <p>This is a simple example of a React component.</p>
