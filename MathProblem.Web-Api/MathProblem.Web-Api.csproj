@@ -36,11 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data" />
-    <Folder Include="Data\Migrations" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\MathProblem.Contracts\MathProblem.Contracts.csproj" />
     <ProjectReference Include="..\MathProblem.DAL\MathProblem.DAL.csproj" />
   </ItemGroup>
 

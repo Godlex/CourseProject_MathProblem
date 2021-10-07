@@ -196,6 +196,7 @@ namespace MathProblem.DAL.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RightAnswerCount = table.Column<int>(type: "int", nullable: false),
                     TaskCreatedCount = table.Column<int>(type: "int", nullable: false)
                 },
@@ -309,9 +310,7 @@ namespace MathProblem.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PostTask_AuthorId",
                 table: "PostTask",
-                column: "AuthorId",
-                unique: true,
-                filter: "[AuthorId] IS NOT NULL");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostTask_UserId",

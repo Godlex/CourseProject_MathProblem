@@ -218,9 +218,7 @@ namespace MathProblem.DAL.Migrations
 
                     b.HasKey("PostTaskId");
 
-                    b.HasIndex("AuthorId")
-                        .IsUnique()
-                        .HasFilter("[AuthorId] IS NOT NULL");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("UserId");
 
@@ -237,6 +235,9 @@ namespace MathProblem.DAL.Migrations
 
                     b.Property<int>("TaskCreatedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -381,8 +382,8 @@ namespace MathProblem.DAL.Migrations
             modelBuilder.Entity("MathProblem.Models.Entities.PostTask", b =>
                 {
                     b.HasOne("MathProblem.Models.Entities.User", null)
-                        .WithOne()
-                        .HasForeignKey("MathProblem.Models.Entities.PostTask", "AuthorId");
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("MathProblem.Models.Entities.User", null)
                         .WithMany("PostTasks")

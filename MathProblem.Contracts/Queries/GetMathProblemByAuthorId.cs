@@ -1,5 +1,7 @@
-namespace MathProblem.Contracts.Queries
+﻿namespace MathProblem.Contracts.Queries
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using DAL;
@@ -7,8 +9,9 @@ namespace MathProblem.Contracts.Queries
     using Microsoft.EntityFrameworkCore;
     using Models.Entities;
 
-    public static class GetUserById
+    public class GetMathProblemByAuthorId
     {
+        
         //Query
         public record Query(string Id) : IRequest<Response>;
 
@@ -25,12 +28,12 @@ namespace MathProblem.Contracts.Queries
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Set<User>().FirstOrDefaultAsync(x=>x.UserId==request.Id, cancellationToken: cancellationToken);
-                return user == null ? null : new Response(user.UserId, user.UserName);
+                var mathProblems = _context.Set<PostTask>().Where(x => x.AuthorId == request.Id);
+                return new Response(new List<PostTask>(mathProblems));
             }
         }
 
         //Response
-        public record Response(string Id, string Name);
+        public record Response(List<PostTask> Tasks);
     }
 }

@@ -8,7 +8,7 @@ namespace MathProblem.DAL.Mappings
     {
         public void Configure(EntityTypeBuilder<PostTask> builder)
         {
-            builder.HasOne<User>().WithOne().HasForeignKey<PostTask>(x => x.AuthorId);
+            builder.HasOne<User>().WithMany().HasForeignKey(task => task.AuthorId);
         }
     }
 }
