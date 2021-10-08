@@ -32,5 +32,7 @@ namespace MathProblem.Contracts.Queries
 
         //Response
         public record Response(string Id, string Name);
+        
+        
     }
 }
