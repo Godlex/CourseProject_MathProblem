@@ -25,7 +25,7 @@ export class NavMenu extends Component {
         return (
             <header>
                 <Container>
-                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse"  navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                             <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>

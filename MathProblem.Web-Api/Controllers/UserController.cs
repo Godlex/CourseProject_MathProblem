@@ -10,6 +10,7 @@
 
 
     [ApiController]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         /*private readonly IMediator _mediator;

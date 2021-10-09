@@ -8,7 +8,7 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MathProblemController : ControllerBase
     {
         private readonly IMediator _mediator;

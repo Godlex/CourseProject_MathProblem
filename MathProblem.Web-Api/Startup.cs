@@ -1,6 +1,8 @@
 namespace MathProblem.Web_Api
 {
+    using Contracts.Queries;
     using DAL;
+    using MediatR;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -31,7 +33,7 @@ namespace MathProblem.Web_Api
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddSignInManager<ApplicationSignInManager>();
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddUserManager<ApplicationUserManager>();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
@@ -42,6 +44,8 @@ namespace MathProblem.Web_Api
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddMediatR(typeof(GetUserById).Assembly);
+            
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -93,7 +97,7 @@ namespace MathProblem.Web_Api
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "api/{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 

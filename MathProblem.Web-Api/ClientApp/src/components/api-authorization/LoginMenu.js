@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component, Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import authService from './AuthorizeService';
-import { ApplicationPaths } from './ApiAuthorizationConstants';
+import {ApplicationPaths} from './ApiAuthorizationConstants';
 
 export class LoginMenu extends Component {
     constructor(props) {
@@ -31,30 +31,46 @@ export class LoginMenu extends Component {
     }
 
     render() {
-        const { isAuthenticated, userName } = this.state;
+        const {isAuthenticated, userName} = this.state;
         if (!isAuthenticated) {
             const registerPath = `${ApplicationPaths.Register}`;
             const loginPath = `${ApplicationPaths.Login}`;
             return this.anonymousView(registerPath, loginPath);
         } else {
             const profilePath = `${ApplicationPaths.Profile}`;
-            const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
+            const logoutPath = {pathname: `${ApplicationPaths.LogOut}`, state: {local: true}};
             return this.authenticatedView(userName, profilePath, logoutPath);
         }
     }
 
     authenticatedView(userName, profilePath, logoutPath) {
         return (<Fragment>
-                <NavLink tag={Link} className="text-dark" to={profilePath}>Hello {userName}</NavLink>
-                <NavLink tag={Link} className="text-dark" to={logoutPath}>Logout</NavLink>
+            <nav>
+                <ul>
+                    <li>
+                <Link tag={Link} className="text-dark" to={profilePath}>Hello {userName}</Link>
+                    </li>
+                    <li>
+                <Link tag={Link} className="text-dark" to={logoutPath}>Logout</Link>
+                    </li>
+                </ul>
+            </nav>
         </Fragment>);
 
     }
 
     anonymousView(registerPath, loginPath) {
         return (<Fragment>
-                <NavLink tag={Link} className="text-dark" to={registerPath}>Register</NavLink>
-                <NavLink tag={Link} className="text-dark" to={loginPath}>Login</NavLink>
+            <nav>
+                <ul>
+                    <li>
+                <Link tag={Link} to={registerPath}>Register</Link>
+                    </li>
+                    <li>
+                <Link tag={Link} to={loginPath}>Login</Link>
+                    </li>
+                </ul>
+            </nav>
         </Fragment>);
     }
 }
