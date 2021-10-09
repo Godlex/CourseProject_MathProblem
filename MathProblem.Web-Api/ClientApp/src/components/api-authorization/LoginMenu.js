@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import authService from './AuthorizeService';
 import {ApplicationPaths} from './ApiAuthorizationConstants';
+import {Button} from "@mui/material";
 
 export class LoginMenu extends Component {
     constructor(props) {
@@ -45,32 +46,28 @@ export class LoginMenu extends Component {
 
     authenticatedView(userName, profilePath, logoutPath) {
         return (<Fragment>
-            <nav>
-                <ul>
-                    <li>
-                <Link tag={Link} className="text-dark" to={profilePath}>Hello {userName}</Link>
-                    </li>
-                    <li>
-                <Link tag={Link} className="text-dark" to={logoutPath}>Logout</Link>
-                    </li>
-                </ul>
-            </nav>
+            <Button
+                to={profilePath} component={Link}
+                color="inherit">{"Hello " + userName}
+            </Button>
+            <Button
+                to={logoutPath} component={Link}
+                color="inherit">{"Logout"}
+            </Button>
         </Fragment>);
 
     }
 
     anonymousView(registerPath, loginPath) {
         return (<Fragment>
-            <nav>
-                <ul>
-                    <li>
-                <Link tag={Link} to={registerPath}>Register</Link>
-                    </li>
-                    <li>
-                <Link tag={Link} to={loginPath}>Login</Link>
-                    </li>
-                </ul>
-            </nav>
+            <Button
+                to={registerPath} component={Link}
+                color="inherit">{"Register "}
+            </Button>
+            <Button
+                to={loginPath} component={Link}
+                color="inherit">{"Login"}
+            </Button>
         </Fragment>);
     }
 }

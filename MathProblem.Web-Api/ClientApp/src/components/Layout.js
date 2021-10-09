@@ -3,7 +3,6 @@ import { NavMenu } from './NavMenu';
 import {Container} from "@mui/material";
 
 export class Layout extends Component {
-  static displayName = Layout.name;
 
   render () {
     return (
