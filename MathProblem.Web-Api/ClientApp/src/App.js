@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Home} from './components/Home';
 import {FetchData} from './components/FetchData';
 import {Counter} from './components/Counter';
@@ -6,18 +6,37 @@ import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import {ApplicationPaths} from './components/api-authorization/ApiAuthorizationConstants';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import {AppBar, Box, createTheme, IconButton, Tab, Tabs, ThemeProvider, Toolbar, useTheme} from "@mui/material";
+import {
+    AppBar,
+    Box,
+    createTheme,
+    IconButton,
+    MenuItem,
+    Select,
+    Tab,
+    Tabs,
+    ThemeProvider,
+    Toolbar,
+    useTheme
+} from "@mui/material";
 import {LoginMenu} from "./components/api-authorization/LoginMenu";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { Trans } from 'react-i18next';
+import {useTranslation} from "react-i18next";
+import "./translations/i18n"
+import i18n from "i18next";
 
 const ColorModeContext = React.createContext({
     toggleColorMode: () => {
     }
 });
 
+
+
 function ToggleThemeButton() {
+
+    const {t} = useTranslation();
+    
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
 
@@ -29,7 +48,7 @@ function ToggleThemeButton() {
             color: 'secondary'
         }}
     >
-        {theme.palette.mode} mode
+        {theme.palette.mode === 'dark' ? <p> {t("dark_mode")} </p> : <p> {t("light_mode")} </p>}
         <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
         </IconButton>
@@ -38,10 +57,18 @@ function ToggleThemeButton() {
 
 export function App() {
 
+    const [language, setLanguage] = useState('ru');
+
+    const handleOnclick=(e)=>{
+        e.preventDefault();
+        setLanguage(e.target.value);
+        i18n.changeLanguage(e.target.value);
+    }
+
     return (
         <ToggleColorMode>
             <Router>
-                <AppBar position="fixed" >
+                <AppBar position="fixed">
                     <Toolbar>
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
@@ -49,6 +76,14 @@ export function App() {
                             <Tab label="Counter" to="/counter" component={Link}/>
                             <Tab label="FetchData" to="/fetch-data" component={Link}/>
                         </Tabs>
+                        <Select
+                            value={language}
+                            label="Language"
+                            onChange={handleOnclick}
+                        >
+                            <MenuItem value='ru'>Russian</MenuItem>
+                            <MenuItem value='en'>English</MenuItem>
+                        </Select>
                         <LoginMenu/>
                     </Toolbar>
                 </AppBar>
@@ -74,6 +109,7 @@ export function App() {
     )
         ;
 }
+
 
 export default function ToggleColorMode({children}) {
     const [mode, setMode] = React.useState('dark');
