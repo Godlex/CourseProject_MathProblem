@@ -1,4 +1,7 @@
 /* Provide sufficient contrast against white background */
+body{
+  margin: 0;
+}
 a {
   color: #0366d6;
 }

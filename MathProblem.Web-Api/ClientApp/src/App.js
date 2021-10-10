@@ -10,6 +10,7 @@ import {AppBar, Box, createTheme, IconButton, Tab, Tabs, ThemeProvider, Toolbar,
 import {LoginMenu} from "./components/api-authorization/LoginMenu";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { Trans } from 'react-i18next';
 
 const ColorModeContext = React.createContext({
     toggleColorMode: () => {
@@ -40,7 +41,7 @@ export function App() {
     return (
         <ToggleColorMode>
             <Router>
-                <AppBar position="fixed">
+                <AppBar position="fixed" >
                     <Toolbar>
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
@@ -51,12 +52,13 @@ export function App() {
                         <LoginMenu/>
                     </Toolbar>
                 </AppBar>
-                <Box style={{paddingTop: "65px"}} 
+                <Box style={{paddingTop: "65px"}}
                      sx={{
-                    width: '100%',
-                    justifyContent: 'center',
-                    bgcolor: 'background.default',
-                    color: 'text.primary',
+                         justifyContent: 'center',
+                         bgcolor: 'background.default',
+                         color: 'text.primary',
+                         minHeight: '100vh',
+                         width: '100%'
                      }}
                 >
                     <Switch>

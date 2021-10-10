@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
 import { NavMenu } from './NavMenu';
-import {Container} from "@mui/material";
+import {Container, createTheme, ThemeProvider} from "@mui/material";
 
-export class Layout extends Component {
+const ColorModeContext = React.createContext({
+    toggleColorMode: () => {
+    }
+});
 
-  render () {
-    return (
-      <div>
-        <NavMenu/>
-        <Container>
-          {this.props.children}
-        </Container>
-      </div>
+export default function Layout({children}) {
+    const [mode, setMode] = React.useState('dark');
+    const colorMode = React.useMemo(
+        () => ({
+            toggleColorMode: () => {
+                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+            },
+        }),
+        [],
     );
-  }
+
+    const theme = React.useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode,
+                },
+            }),
+        [mode],
+    );
+
+    return (
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                {children}
+            </ThemeProvider>
+        </ColorModeContext.Provider>
+    );
 }

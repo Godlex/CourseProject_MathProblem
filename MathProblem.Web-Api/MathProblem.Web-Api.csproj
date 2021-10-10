@@ -35,6 +35,8 @@
     <Content Include="ClientApp\public\manifest.json" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="ClientApp\src\translations\en\en.json" />
+    <None Include="ClientApp\src\translations\ru\ru.json" />
   </ItemGroup>
 
   <ItemGroup>
