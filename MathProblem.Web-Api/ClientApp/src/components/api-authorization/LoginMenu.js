@@ -3,6 +3,7 @@ import {Link, NavLink} from 'react-router-dom';
 import authService from './AuthorizeService';
 import {ApplicationPaths} from './ApiAuthorizationConstants';
 import {Button} from "@mui/material";
+import {Translation} from "../../translations/translation";
 
 export class LoginMenu extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ export class LoginMenu extends Component {
         return (<Fragment>
             <Button
                 to={profilePath} component={Link}
-                color="inherit">{"Hello " + userName}
+                color="inherit"> <Translation text={"hello"}/> {userName}
             </Button>
             <Button
                 to={logoutPath} component={Link}

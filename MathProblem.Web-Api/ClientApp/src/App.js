@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Home} from './components/Home';
-import {FetchData} from './components/FetchData';
-import {Counter} from './components/Counter';
+import {Home} from './Home';
+import {FetchData} from './FetchData';
+import {AddMathProblem} from './AddMathProblem';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import {ApplicationPaths} from './components/api-authorization/ApiAuthorizationConstants';
@@ -22,9 +22,10 @@ import {
 import {LoginMenu} from "./components/api-authorization/LoginMenu";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import {useTranslation} from "react-i18next";
 import "./translations/i18n"
 import i18n from "i18next";
+import {Translation} from "./translations/translation";
+
 
 const ColorModeContext = React.createContext({
     toggleColorMode: () => {
@@ -32,11 +33,8 @@ const ColorModeContext = React.createContext({
 });
 
 
-
 function ToggleThemeButton() {
 
-    const {t} = useTranslation();
-    
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
 
@@ -48,7 +46,7 @@ function ToggleThemeButton() {
             color: 'secondary'
         }}
     >
-        {theme.palette.mode === 'dark' ? <p> {t("dark_mode")} </p> : <p> {t("light_mode")} </p>}
+        {theme.palette.mode === 'dark' ?  <Translation text={"dark_mode"}/>  : <Translation text={"light_mode"}/> }
         <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
         </IconButton>
@@ -59,7 +57,7 @@ export function App() {
 
     const [language, setLanguage] = useState('ru');
 
-    const handleOnclick=(e)=>{
+    const handleOnclick = (e) => {
         e.preventDefault();
         setLanguage(e.target.value);
         i18n.changeLanguage(e.target.value);
@@ -72,16 +70,16 @@ export function App() {
                     <Toolbar>
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
-                            <Tab label="Home" to="/" component={Link}/>
-                            <Tab label="Counter" to="/counter" component={Link}/>
+                            <Tab label={<Translation text={"button_home"}/>} to="/" component={Link}/>
+                            <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem" component={Link}/>
                             <Tab label="FetchData" to="/fetch-data" component={Link}/>
                         </Tabs>
                         <Select
+                            variant="standard"
                             value={language}
-                            label="Language"
                             onChange={handleOnclick}
                         >
-                            <MenuItem value='ru'>Russian</MenuItem>
+                            <MenuItem value='ru'>Русский</MenuItem>
                             <MenuItem value='en'>English</MenuItem>
                         </Select>
                         <LoginMenu/>
@@ -98,7 +96,7 @@ export function App() {
                 >
                     <Switch>
                         <Route exact path='/' component={Home}/>
-                        <Route path='/counter' component={Counter}/>
+                        <Route path='/add-mathproblem' component={AddMathProblem}/>
                         <AuthorizeRoute path='/fetch-data' component={FetchData}/>
                         <Route path={ApplicationPaths.ApiAuthorizationPrefix}
                                component={ApiAuthorizationRoutes}/>
