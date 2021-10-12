@@ -3,5 +3,8 @@
   light_mode: "Light mode",
   button_home:"Home",
   hello: "Hello ",
-  button_add_mathProblem:"Add MathProblem"
+  button_add_mathProblem:"Add MathProblem",
+  login:"Login",
+  logout:"Logout",
+  register:"Register"
 };

@@ -46,7 +46,7 @@ function ToggleThemeButton() {
             color: 'secondary'
         }}
     >
-        {theme.palette.mode === 'dark' ?  <Translation text={"dark_mode"}/>  : <Translation text={"light_mode"}/> }
+        {theme.palette.mode === 'dark' ? <Translation text={"dark_mode"}/> : <Translation text={"light_mode"}/>}
         <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
         </IconButton>
@@ -71,7 +71,8 @@ export function App() {
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
                             <Tab label={<Translation text={"button_home"}/>} to="/" component={Link}/>
-                            <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem" component={Link}/>
+                            <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem"
+                                 component={Link}/>
                             <Tab label="FetchData" to="/fetch-data" component={Link}/>
                         </Tabs>
                         <Select
@@ -104,8 +105,7 @@ export function App() {
                 </Box>
             </Router>
         </ToggleColorMode>
-    )
-        ;
+    );
 }
 
 

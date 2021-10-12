@@ -53,7 +53,7 @@ export class LoginMenu extends Component {
             </Button>
             <Button
                 to={logoutPath} component={Link}
-                color="inherit">{"Logout"}
+                color="inherit"><Translation text={"logout"}/>
             </Button>
         </Fragment>);
 
@@ -63,11 +63,11 @@ export class LoginMenu extends Component {
         return (<Fragment>
             <Button
                 to={registerPath} component={Link}
-                color="inherit">{"Register "}
+                color="inherit"><Translation text={"register"}/>
             </Button>
             <Button
                 to={loginPath} component={Link}
-                color="inherit">{"Login"}
+                color="inherit"><Translation text={"login"}/>
             </Button>
         </Fragment>);
     }
