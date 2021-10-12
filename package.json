@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "heroku-prebuild": "cd MathProblem.Web-Api/ClientApp && npm install && npm run build && cd ../.."
+  }
+}
