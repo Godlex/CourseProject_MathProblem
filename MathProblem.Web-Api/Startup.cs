@@ -27,7 +27,7 @@ namespace MathProblem.Web_Api
         public void ConfigureServices(IServiceCollection services) 
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(  
+                options.UseSqlServer(  
                     Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDatabaseDeveloperPageExceptionFilter();

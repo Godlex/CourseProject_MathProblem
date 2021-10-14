@@ -6,5 +6,6 @@
   button_add_mathProblem: "Добавить задачу",
   login:"Войти",
   logout:"Выйти",
-  register:"Регистрация"
+  register:"Регистрация",
+  button_save:"Сохранить"
 };
