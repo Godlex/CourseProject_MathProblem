@@ -8,6 +8,8 @@ namespace MathProblem.DAL.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            
+            
             builder.HasOne<ApplicationUser>().WithOne().HasForeignKey<User>(x => x.UserId);
         }
     }
