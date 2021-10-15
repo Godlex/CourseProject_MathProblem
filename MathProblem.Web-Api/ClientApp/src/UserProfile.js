@@ -57,8 +57,8 @@ export class UserProfile extends Component {
                             name="simple-controlled"
                             value={value}
                             precision={0.5}
-                            onChange={(event, newValue) => {
-                                this.setValue(newValue, value,averageValue);
+                            onChange={(event,Value) => {
+                                this.setValue( value);
 
                             }
                             }
