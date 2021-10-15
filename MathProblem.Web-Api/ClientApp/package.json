@@ -15,6 +15,7 @@
     "history": "^5.0.1",
     "i18next": "^21.2.4",
     "i18next-browser-languagedetector": "^6.1.2",
+    "katex": "^0.13.18",
     "mui-datatables": "^3.7.8",
     "oidc-client": "^1.11.5",
     "react": "^17.0.2",

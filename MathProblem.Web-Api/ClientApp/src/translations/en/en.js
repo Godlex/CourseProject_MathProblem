@@ -7,5 +7,7 @@
   login:"Login",
   logout:"Logout",
   register:"Register",
-  button_save:"Save"
+  button_save:"Save",
+  text_Upload:"Upload",
+  text_Task_name:"Task name"
 };

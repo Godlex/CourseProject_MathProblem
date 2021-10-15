@@ -2,6 +2,5 @@
 
 export function Translation({text}) {
     const {t} = useTranslation();
-
     return <>{t(text)}</>;
 }

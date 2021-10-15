@@ -7,5 +7,7 @@
   login:"Войти",
   logout:"Выйти",
   register:"Регистрация",
-  button_save:"Сохранить"
+  button_save:"Сохранить",
+  text_Task_name: "Название задачи",
+  text_Upload: "Загрузить"
 };

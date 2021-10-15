@@ -84,7 +84,7 @@ namespace MathProblem.Web_Api
                 app.UseHsts();
             }
             
-            app.UseReverseProxyHttpsEnforcer();
+            /*app.UseReverseProxyHttpsEnforcer();*/
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -107,10 +107,10 @@ namespace MathProblem.Web_Api
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                /*if (env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }*/
+                }
             });
         }
     }
