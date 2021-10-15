@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import authService from "./components/api-authorization/AuthorizeService";
-import {Accordion, AccordionDetails, AccordionSummary, Box, Button, Paper, Rating, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Paper, Rating, Typography} from "@mui/material";
 
 
 export class UserProfile extends Component {
@@ -26,9 +26,8 @@ export class UserProfile extends Component {
         });
     }
 
-
-    setValue(newValue, value) {
-
+    renderTasks(){
+        
     }
 
     render() {
@@ -59,7 +58,7 @@ export class UserProfile extends Component {
                             value={value}
                             precision={0.5}
                             onChange={(event, newValue) => {
-                                this.setValue(newValue, value);
+                                this.setValue(newValue, value,averageValue);
 
                             }
                             }

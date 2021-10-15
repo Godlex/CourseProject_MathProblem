@@ -1,7 +1,7 @@
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import {Translation} from "./translations/translation";
-import {Button, IconButton, Input, Stack, styled, Toolbar} from "@mui/material";
+import {Button, IconButton, Stack, styled, Toolbar} from "@mui/material";
 import {PhotoCamera} from "@mui/icons-material";
 import {CloudinaryContext, Image} from "cloudinary-react";
 
