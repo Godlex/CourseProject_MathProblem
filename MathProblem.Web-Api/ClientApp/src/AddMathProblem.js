@@ -2,14 +2,49 @@ import React, {useState} from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import {Translation} from "./translations/translation";
 import {Box, Button, TextareaAutosize, TextField, Toolbar, Typography} from "@mui/material";
+import {WithContext as ReactTags} from 'react-tag-input';
+import './custom.css';
+
+const KeyCodes = {
+    comma: 188,
+    enter: 13
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 export function AddMathProblem() {
 
+    const [tags, setTags] = useState([]);
+
     const [value, setValue] = useState();
     const [taskName, setTaskName] = useState();
+    const [answer, setAnswer] = useState();
 
     const [image, setImage] = useState("");
+    
     const [url, setUrl] = useState("");
+
+    const handleDelete = i => {
+        setTags(tags.filter((tag, index) => index !== i));
+    };
+
+    const handleAddition = tag => {
+        setTags([...tags, tag]);
+    };
+
+    const handleDrag = (tag, currPos, newPos) => {
+        const newTags = tags.slice();
+
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+
+        // re-render
+        setTags(newTags);
+    };
+
+    const handleTagClick = index => {
+        console.log('The tag at index ' + index + ' was clicked');
+    };
 
     const uploadImage = () => {
         const data = new FormData()
@@ -42,7 +77,7 @@ export function AddMathProblem() {
                 valeu={taskName}
                 onChange={(e) => setTaskName(e.target.value)}
                 label={<Translation text={"text_Task_name"}/>}
-                autoComplete="Task Name 2"
+                autocomplete
             />
 
             <MDEditor
@@ -50,6 +85,26 @@ export function AddMathProblem() {
                 onChange={setValue}
             />
             <MDEditor.Markdown/>
+            
+            <div>
+                <ReactTags
+                    tags={tags}
+                    delimiters={delimiters}
+                    handleDelete={handleDelete}
+                    handleAddition={handleAddition}
+                    handleDrag={handleDrag}
+                    handleTagClick={handleTagClick}
+                    inputFieldPosition="bottom"
+                    autocomplete
+                />
+            </div>
+
+            <TextField
+                valeu={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                label={<Translation text={"text_Answer"}/>}
+                autocomplete
+            />
 
             <Box>
                 <Box sx={{display: 'flex'}}>
@@ -66,7 +121,6 @@ export function AddMathProblem() {
                         <h1>Preview image</h1>
                     </Box>
                     <img src={url} width={"50%"} alt={"image"}/>
-
                 </Box>
             </Box>
 
