@@ -80,10 +80,11 @@ namespace MathProblem.Web_Api
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseReverseProxyHttpsEnforcer();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+            app.UseReverseProxyHttpsEnforcer();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -106,10 +107,10 @@ namespace MathProblem.Web_Api
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                /*if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                }*/
             });
         }
     }
