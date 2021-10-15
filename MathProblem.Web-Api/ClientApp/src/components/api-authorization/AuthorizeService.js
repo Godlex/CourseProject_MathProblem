@@ -185,6 +185,9 @@ export class AuthorizeService {
         }
 
         let settings = await response.json();
+        settings.authority = settings.authority.replace("http:","https:");
+        settings.redirect_uri= settings.redirect_uri.replace("http:","https:");
+        settings.post_logout_redirect_uri= settings.post_logout_redirect_uri.replace("http:","https:");
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
