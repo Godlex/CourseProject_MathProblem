@@ -4,6 +4,7 @@
     using Contracts.Commands;
     using Contracts.Queries;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -27,7 +28,8 @@
             return response == null ? NotFound() : Ok(response);
         }
         
-        [HttpPost] //localhost/mathproblems
+        [HttpPost] //localhost/mathproblem
+        [Authorize]
         public async Task<IActionResult> AddMathProblem(AddMathProblem.Command command)
         {
             return Ok(await _mediator.Send(command));

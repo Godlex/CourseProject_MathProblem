@@ -9,5 +9,8 @@
   register:"Регистрация",
   button_save:"Сохранить",
   text_Task_name: "Название задачи",
-  text_Upload: "Загрузить"
+  text_Upload: "Загрузить",
+  text_copy_image_url:"Копировать url изображения",
+  text_preview_image:"Предпросмотр изображения",
+  text_Answer:"Ответ"
 };

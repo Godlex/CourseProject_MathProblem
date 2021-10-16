@@ -4,6 +4,9 @@ import {Translation} from "./translations/translation";
 import {Box, Button, TextareaAutosize, TextField, Toolbar, Typography} from "@mui/material";
 import {WithContext as ReactTags} from 'react-tag-input';
 import './custom.css';
+import {useHistory} from "react-router-dom";
+import authService from "./components/api-authorization/AuthorizeService";
+
 
 const KeyCodes = {
     comma: 188,
@@ -14,6 +17,8 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 export function AddMathProblem() {
 
+    let history = useHistory();
+
     const [tags, setTags] = useState([]);
 
     const [value, setValue] = useState();
@@ -21,7 +26,7 @@ export function AddMathProblem() {
     const [answer, setAnswer] = useState();
 
     const [image, setImage] = useState("");
-    
+
     const [url, setUrl] = useState("");
 
     const handleDelete = i => {
@@ -65,10 +70,27 @@ export function AddMathProblem() {
     //save берем value (наш текст) и отправляем request
 
 
+    const saveTask = async () => {
+        const task = {
+            Name: taskName,
+            TaskCondition: value,
+            Tags: tags.map(tag => tag.text),
+            RightAnswer: answer
+        };
+        const token = await authService.getAccessToken();
+        fetch("/api/MathProblem", {
+            method: "post", body: JSON.stringify(task), headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        }).then(() => history.push("/"))
+    }
+
     return (
         <div className="container">
+
             <Toolbar>
-                <Button variant="contained">
+                <Button variant="contained" onClick={saveTask}>
                     <Translation text={"button_save"}/>
                 </Button>
             </Toolbar>
@@ -77,7 +99,6 @@ export function AddMathProblem() {
                 valeu={taskName}
                 onChange={(e) => setTaskName(e.target.value)}
                 label={<Translation text={"text_Task_name"}/>}
-                autocomplete
             />
 
             <MDEditor
@@ -85,7 +106,7 @@ export function AddMathProblem() {
                 onChange={setValue}
             />
             <MDEditor.Markdown/>
-            
+
             <div>
                 <ReactTags
                     tags={tags}
@@ -103,7 +124,6 @@ export function AddMathProblem() {
                 valeu={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 label={<Translation text={"text_Answer"}/>}
-                autocomplete
             />
 
             <Box>
@@ -113,12 +133,12 @@ export function AddMathProblem() {
                     <Button variant="outlined" color="primary" onClick={() => {
                         navigator.clipboard.writeText(url)
                     }}>
-                        Copy image url
+                        <Translation text={"text_copy_image_url"}/>
                     </Button>
                 </Box>
                 <Box>
                     <Box>
-                        <h1>Preview image</h1>
+                        <h1><Translation text={"text_preview_image"}/></h1>
                     </Box>
                     <img src={url} width={"50%"} alt={"image"}/>
                 </Box>

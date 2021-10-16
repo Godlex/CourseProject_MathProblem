@@ -1,10 +1,13 @@
 namespace MathProblem.Contracts.Commands
 {
     using System;
+    using System.Collections.Generic;
+    using System.Security.Claims;
     using System.Threading;
     using System.Threading.Tasks;
     using DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Http;
     using Models.Entities;
 
     public class AddMathProblem
@@ -14,10 +17,8 @@ namespace MathProblem.Contracts.Commands
         public record Command(
             string Name,
             string TaskCondition,
-            string Tags,
-            string RightAnswer,
-            float Rating,
-            string AuthorId
+            IReadOnlyCollection<string> Tags,
+            string RightAnswer
         ) : IRequest<string>;
 
         //Handler
@@ -26,27 +27,33 @@ namespace MathProblem.Contracts.Commands
         public class Handler : IRequestHandler<Command, string>
         {
             private readonly ApplicationDbContext _context;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public Handler(ApplicationDbContext context)
+            public Handler(ApplicationDbContext context,IHttpContextAccessor httpContextAccessor)
             {
                 _context = context;
+                _httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<string> Handle(Command request, CancellationToken cancellationToken)
             {
                 //add Math problem to DB
-                string taskId = new Guid().ToString();
+                string taskId = Guid.NewGuid().ToString();
+                
+                var userId =_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                
                 _context.Set<PostTask>().Add(new PostTask
                 {
-                    AuthorId = request.AuthorId, Name = request.Name, PostTaskId = taskId,
-                    Rating = request.Rating, Tags = request.Tags, RightAnswer = request.RightAnswer,
+                    AuthorId = userId , Name = request.Name, PostTaskId = taskId,
+                    Rating = 0, Tags = string.Join(",",request.Tags), RightAnswer = request.RightAnswer,
                     TaskCondition = request.TaskCondition, PublicationDateTime = new DateTime()
                 });
+
+                await _context.SaveChangesAsync(cancellationToken);
                 return taskId;
             }
         }
 
         //Response 
-        public record Response(string Id);
     }
 }
