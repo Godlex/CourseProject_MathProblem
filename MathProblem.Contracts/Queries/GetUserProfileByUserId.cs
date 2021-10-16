@@ -7,7 +7,7 @@ namespace MathProblem.Contracts.Queries
     using Microsoft.EntityFrameworkCore;
     using Models.Entities;
 
-    public static class GetUserById
+    public static class GetUserProfileByUserId
     {
         //Query
         public record Query(string Id) : IRequest<Response>;
@@ -26,12 +26,12 @@ namespace MathProblem.Contracts.Queries
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _context.Set<User>().FirstOrDefaultAsync(x=>x.UserId==request.Id, cancellationToken: cancellationToken);
-                return user == null ? null : new Response(user.UserId, user.UserName);
+                return user == null ? null : new Response(user.UserId, user.UserName,user.RightAnswerCount,user.TaskCreatedCount,user.AverageTaskRating);
             }
         }
 
         //Response
-        public record Response(string Id, string Name);
+        public record Response(string Id, string Name,int RightAnswerCount,int TaskCreatedCount,int? AverageTaskRating);
         
         
     }

@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import authService from "./components/api-authorization/AuthorizeService";
-import {Accordion, AccordionDetails, AccordionSummary, Box, Paper, Rating, Typography} from "@mui/material";
+import {Box, Paper, Rating, Typography} from "@mui/material";
+import {Translation} from "./translations/translation";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {Tasks} from "./components/Tasks";
 
 
 export class UserProfile extends Component {
@@ -10,7 +13,11 @@ export class UserProfile extends Component {
 
         this.state = {
             isAuthenticated: false,
-            userName: null
+            userName: null,
+            userId: null,
+            rightAnswerCount: null,
+            taskCreatedCount: null,
+            averageTaskRating: 0,
         };
     }
 
@@ -20,19 +27,34 @@ export class UserProfile extends Component {
 
     async populateState() {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        const token = authService.getAccessToken();
+        const response = await fetch("api/UserProfile/" + user.sub,
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }
+        )
+
+        const data = await response.json();
+
         this.setState({
             isAuthenticated,
             userName: user && user.name,
+            userId: user && user.sub,
+            rightAnswerCount: data.rightAnswerCount,
+            taskCreatedCount: data.taskCreatedCount,
+            averageTaskRating: data.averageTaskRating
         });
     }
 
-    renderTasks(){
-        
-    }
+    
 
     render() {
-        let {userName, value} = this.state;
-        value = 4;
+        const {userName, userId, rightAnswerCount, taskCreatedCount, averageTaskRating} = this.state;
+        
         return (
             <Box>
                 <Paper elevation={3}>
@@ -42,35 +64,16 @@ export class UserProfile extends Component {
                         <h1>
                             {userName}
                         </h1>
-                        <Rating name="read-only" value={value} precision={0.5} readOnly/>
+                        <Rating name="read-only" value={averageTaskRating} precision={0.5} readOnly/>
                         <Typography>
-                            ({value})
+                            ({averageTaskRating})
                         </Typography>
                     </Typography>
+                    <Typography>
+                        <Translation text={"text_created_task"}/> - {taskCreatedCount}
+                    </Typography>
                 </Paper>
-                <Accordion>
-                    <AccordionSummary
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <Typography>Task 1<Rating
-                            name="simple-controlled"
-                            value={value}
-                            precision={0.5}
-                            onChange={(event,Value) => {
-                                this.setValue( value);
-
-                            }
-                            }
-
-                        /></Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Task Text
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
+                <Tasks userId={userId} taskCreatedCount={taskCreatedCount}/>
             </Box>
         );
     }

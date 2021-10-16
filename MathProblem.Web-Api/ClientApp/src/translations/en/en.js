@@ -12,5 +12,6 @@
   text_Task_name:"Task name",
   text_copy_image_url:"Copy image url",
   text_preview_image:"Preview image",
-  text_Answer:"Answer"
+  text_Answer:"Answer",
+  text_created_task:"Created tasks"
 };

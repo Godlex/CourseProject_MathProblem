@@ -2,6 +2,7 @@ namespace MathProblem.Contracts.Commands
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading;
     using System.Threading.Tasks;
@@ -49,6 +50,9 @@ namespace MathProblem.Contracts.Commands
                     TaskCondition = request.TaskCondition, PublicationDateTime = new DateTime()
                 });
 
+                // ReSharper disable once PossibleNullReferenceException
+                var a = _context.Set<User>().FirstOrDefault(x => x.UserId == userId).TaskCreatedCount++;
+                
                 await _context.SaveChangesAsync(cancellationToken);
                 return taskId;
             }

@@ -12,5 +12,6 @@
   text_Upload: "Загрузить",
   text_copy_image_url:"Копировать url изображения",
   text_preview_image:"Предпросмотр изображения",
-  text_Answer:"Ответ"
+  text_Answer:"Ответ",
+  text_created_task:"Создано задач"
 };

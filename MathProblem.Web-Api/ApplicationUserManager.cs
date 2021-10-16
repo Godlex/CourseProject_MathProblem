@@ -26,7 +26,7 @@
 
         public override async Task<IdentityResult> CreateAsync(ApplicationUser user)
         {
-            _context.Set<User>().Add(new User { RightAnswerCount = 0, TaskCreatedCount = 0, UserId = user.Id, PostTasks = new List<PostTask>(),UserName = user.UserName});
+            _context.Set<User>().Add(new User { RightAnswerCount = 0, TaskCreatedCount = 0, UserId = user.Id, PostTasks = new List<PostTask>(),UserName = user.UserName,AverageTaskRating = 0});
             return await base.CreateAsync(user);
         }
     }

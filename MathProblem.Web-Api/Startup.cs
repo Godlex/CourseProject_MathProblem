@@ -44,7 +44,7 @@ namespace MathProblem.Web_Api
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddMediatR(typeof(GetUserById).Assembly);
+            services.AddMediatR(typeof(GetUserProfileByUserId).Assembly);
             
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -107,10 +107,10 @@ namespace MathProblem.Web_Api
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                /*if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                }*/
             });
         }
     }
