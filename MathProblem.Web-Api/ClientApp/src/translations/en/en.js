@@ -15,8 +15,8 @@
     text_Answer: "Answer",
     text_created_task: "Created tasks",
     text_it_all: "It all",
-    text_task:"Task: ",
-    text_view_more:"View more",
-    text_tags:"Tags: ",
-    text_condition:"Condition "
+    text_task: "Task: ",
+    text_view_more: "View more",
+    text_tags: "Tags: ",
+    text_condition: "Condition "
 };

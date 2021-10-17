@@ -9,7 +9,7 @@
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(255);
-            
+
             builder.Property(x => x.NormalizedName).HasMaxLength(255);
         }
     }

@@ -25,11 +25,11 @@
             var response = await _mediator.Send(new GetUserProfileByUserId.Query(id));
             return response == null ? NotFound() : Ok(response);
         }
-        
+
         [HttpGet("GetTasks/{authorId}/{page}")]
-        public async Task<IActionResult> GetTasksByAuthorIdAndPageCount(string authorId,int page)
+        public async Task<IActionResult> GetTasksByAuthorIdAndPageCount(string authorId, int page)
         {
-            var response = await _mediator.Send(new GetTasksByAuthorIdAndPageCount.Query(authorId,page));
+            var response = await _mediator.Send(new GetTasksByAuthorIdAndPageCount.Query(authorId, page));
             return response == null ? NotFound() : Ok(response);
         }
     }

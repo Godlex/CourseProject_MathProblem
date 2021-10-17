@@ -56,8 +56,8 @@ function ToggleThemeButton() {
 export function App() {
 
     const [language, setLanguage] = useState('ru');
-    const [isAuthenticated,setIsAuthenticated]= useState(false);
-    useEffect(()=>authService.isAuthenticated().then(x=>setIsAuthenticated(x)),[])
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(() => authService.isAuthenticated().then(x => setIsAuthenticated(x)), [])
 
     const handleOnclick = (e) => {
         e.preventDefault();
@@ -73,7 +73,8 @@ export function App() {
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
                             <Tab label={<Translation text={"button_home"}/>} to="/" component={Link}/>
-                            {isAuthenticated && <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem"
+                            {isAuthenticated &&
+                            <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem"
                                  component={Link}/>}
                         </Tabs>
                         <Select

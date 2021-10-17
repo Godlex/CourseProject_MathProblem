@@ -21,21 +21,21 @@
             _logger = logger;
         }
 
-        [HttpGet("{id}")] //localhost/mathproblems/{id}
+        [HttpGet("{id}")] 
         public async Task<IActionResult> GetMathProblemById(string id)
         {
             var response = await _mediator.Send(new GetMathProblemById.Query(id));
             return response == null ? NotFound() : Ok(response);
         }
 
-        [HttpGet] //localhost/mathproblems/{page}
+        [HttpGet] 
         public async Task<IActionResult> GetAllMathProblem([FromQuery]int page)
         {
             var response = await _mediator.Send(new GetAllMathProblem.Query(page));
             return response == null ? NotFound() : Ok(response);
         }
         
-        [HttpPost] //localhost/mathproblem
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddMathProblem(AddMathProblem.Command command)
         {

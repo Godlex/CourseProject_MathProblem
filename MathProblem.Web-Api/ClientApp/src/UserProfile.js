@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import authService from "./components/api-authorization/AuthorizeService";
 import {Box, Paper, Rating, Typography} from "@mui/material";
 import {Translation} from "./translations/translation";
-import InfiniteScroll from "react-infinite-scroll-component";
 import {Tasks} from "./components/Tasks";
 
 
@@ -50,11 +49,10 @@ export class UserProfile extends Component {
         });
     }
 
-    
 
     render() {
         const {userName, userId, rightAnswerCount, taskCreatedCount, averageTaskRating} = this.state;
-        
+
         return (
             <Box>
                 <Paper elevation={3}>

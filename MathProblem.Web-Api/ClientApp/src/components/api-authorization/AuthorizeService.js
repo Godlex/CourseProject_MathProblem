@@ -1,5 +1,5 @@
-import { UserManager, WebStorageStateStore } from 'oidc-client';
-import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
+import {UserManager, WebStorageStateStore} from 'oidc-client';
+import {ApplicationName, ApplicationPaths} from './ApiAuthorizationConstants';
 
 export class AuthorizeService {
     _callbacks = [];
@@ -136,13 +136,13 @@ export class AuthorizeService {
     }
 
     subscribe(callback) {
-        this._callbacks.push({ callback, subscription: this._nextSubscriptionId++ });
+        this._callbacks.push({callback, subscription: this._nextSubscriptionId++});
         return this._nextSubscriptionId - 1;
     }
 
     unsubscribe(subscriptionId) {
         const subscriptionIndex = this._callbacks
-            .map((element, index) => element.subscription === subscriptionId ? { found: true, index } : { found: false })
+            .map((element, index) => element.subscription === subscriptionId ? {found: true, index} : {found: false})
             .filter(element => element.found === true);
         if (subscriptionIndex.length !== 1) {
             throw new Error(`Found an invalid number of subscriptions ${subscriptionIndex.length}`);
@@ -159,19 +159,19 @@ export class AuthorizeService {
     }
 
     createArguments(state) {
-        return { useReplaceToNavigate: true, data: state };
+        return {useReplaceToNavigate: true, data: state};
     }
 
     error(message) {
-        return { status: AuthenticationResultStatus.Fail, message };
+        return {status: AuthenticationResultStatus.Fail, message};
     }
 
     success(state) {
-        return { status: AuthenticationResultStatus.Success, state };
+        return {status: AuthenticationResultStatus.Success, state};
     }
 
     redirect() {
-        return { status: AuthenticationResultStatus.Redirect };
+        return {status: AuthenticationResultStatus.Redirect};
     }
 
     async ensureUserManagerInitialized() {
@@ -185,9 +185,9 @@ export class AuthorizeService {
         }
 
         let settings = await response.json();
-        settings.authority = settings.authority.replace("http:","https:");
-        settings.redirect_uri= settings.redirect_uri.replace("http:","https:");
-        settings.post_logout_redirect_uri= settings.post_logout_redirect_uri.replace("http:","https:");
+        settings.authority = settings.authority.replace("http:", "https:");
+        settings.redirect_uri = settings.redirect_uri.replace("http:", "https:");
+        settings.post_logout_redirect_uri = settings.post_logout_redirect_uri.replace("http:", "https:");
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
@@ -202,7 +202,9 @@ export class AuthorizeService {
         });
     }
 
-    static get instance() { return authService }
+    static get instance() {
+        return authService
+    }
 }
 
 const authService = new AuthorizeService();

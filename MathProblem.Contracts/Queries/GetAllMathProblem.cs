@@ -16,18 +16,19 @@
 
         //Handler
         //business logic
-        public class Handler: IRequestHandler<Query,Response>
+        public class Handler : IRequestHandler<Query, Response>
         {
             private readonly ApplicationDbContext _context;
-            
-            public Handler(ApplicationDbContext context )
+
+            public Handler(ApplicationDbContext context)
             {
                 _context = context;
             }
-            
+
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var mathProblem = _context.Set<PostTask>().OrderByDescending(task => task.Rating).Skip(request.Page * 10).Take(10);
+                var mathProblem = _context.Set<PostTask>().OrderByDescending(task => task.Rating)
+                    .Skip(request.Page * 10).Take(10);
                 return new Response(await mathProblem.ToListAsync(cancellationToken: cancellationToken));
             }
         }

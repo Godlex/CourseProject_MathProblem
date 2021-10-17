@@ -11,7 +11,7 @@ export function Tasks({userId, taskCreatedCount}) {
     let [hasMore, setHasMore] = useState(true);
     let [page, setPage] = useState(0);
     const [tasks, setTasks] = useState([]);
-    
+
 
     const fetchMoreTask = async () => {
 
@@ -36,7 +36,7 @@ export function Tasks({userId, taskCreatedCount}) {
 
         setPage(++page)
     };
-    
+
     return (
         <div>
             <InfiniteScroll
@@ -56,8 +56,9 @@ export function Tasks({userId, taskCreatedCount}) {
                             <Translation text={"text_task"}/>{value.name} <Rating name="read-only"
                                                                                   value={value.rating}
                                                                                   precision={0.5} readOnly/>
-                            <div> <Translation text={"text_tags"}/>{value.tags}</div>
-                            <Link underline="hover" to={"/task/"+value.postTaskId} ><Translation text={"text_view_more"}/></Link>
+                            <div><Translation text={"text_tags"}/>{value.tags}</div>
+                            <Link underline="hover" to={"/task/" + value.postTaskId}><Translation
+                                text={"text_view_more"}/></Link>
                         </Paper>))}
                 </div>
             </InfiniteScroll>

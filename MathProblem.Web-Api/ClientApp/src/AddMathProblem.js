@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import {Translation} from "./translations/translation";
-import {Box, Button, TextareaAutosize, TextField, Toolbar, Typography} from "@mui/material";
+import {Box, Button, TextField, Toolbar} from "@mui/material";
 import {WithContext as ReactTags} from 'react-tag-input';
 import './custom.css';
 import {useHistory} from "react-router-dom";

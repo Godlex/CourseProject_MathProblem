@@ -12,7 +12,5 @@ namespace MathProblem.Models.Entities
         public float Rating { get; set; }
         public string AuthorId { get; set; }
         public DateTime PublicationDateTime { get; set; }
-        //enum Theme
-        //List<image> Images
     }
 }

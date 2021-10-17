@@ -8,16 +8,15 @@
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            /*builder.Property(u => u.Id).HasMaxLength(45);*/
 
             builder.Property(x => x.UserName).HasMaxLength(255);
-            
+
             builder.Property(x => x.Email).HasMaxLength(255);
-            
+
             builder.Property(x => x.NormalizedEmail).HasMaxLength(255);
-            
+
             builder.Property(x => x.NormalizedUserName).HasMaxLength(255);
-            
+
             builder.Property(u => u.EmailConfirmed).HasConversion<Int16>();
 
             builder.Property(u => u.LockoutEnabled).HasConversion<Int16>();
@@ -27,7 +26,7 @@
             builder.Property(u => u.PhoneNumberConfirmed).HasConversion<Int16>();
 
             builder.Property(u => u.TwoFactorEnabled).HasConversion<Int16>();
-            
+
             builder.Property(u => u.PhoneNumberConfirmed).HasConversion<Int16>();
         }
     }

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { NavMenu } from './NavMenu';
-import {Container, createTheme, ThemeProvider} from "@mui/material";
+import React from 'react';
+import {createTheme, ThemeProvider} from "@mui/material";
 
 const ColorModeContext = React.createContext({
     toggleColorMode: () => {
