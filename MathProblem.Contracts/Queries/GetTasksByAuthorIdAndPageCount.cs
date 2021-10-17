@@ -1,12 +1,12 @@
 ﻿namespace MathProblem.Contracts.Queries
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
     using Models.Entities;
 
@@ -28,18 +28,13 @@
 
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var tasks = _context.Set<PostTask>().Where(task => task.AuthorId == request.Id).Skip((request.Page-1)*10);
-                if (tasks.Count() >= 10)
-                {
-                    tasks = tasks.Take(10);
-                }
-                return tasks == null
-                    ? null
-                    : new Response(tasks);
+                var tasks = _context.Set<PostTask>().Where(task => task.AuthorId == request.Id)
+                    .OrderBy(task => task.PublicationDateTime).Skip(request.Page * 10).Take(10);
+                return new Response(await tasks.ToListAsync(cancellationToken: cancellationToken));
             }
         }
 
         //Response
-        public record Response(IQueryable<PostTask> PostTasks);
+        public record Response(IReadOnlyCollection<PostTask> PostTasks);
     }
 }

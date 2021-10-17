@@ -47,7 +47,7 @@ namespace MathProblem.Contracts.Commands
                 {
                     AuthorId = userId , Name = request.Name, PostTaskId = taskId,
                     Rating = 0, Tags = string.Join(",",request.Tags), RightAnswer = request.RightAnswer,
-                    TaskCondition = request.TaskCondition, PublicationDateTime = new DateTime()
+                    TaskCondition = request.TaskCondition, PublicationDateTime = DateTime.UtcNow
                 });
 
                 // ReSharper disable once PossibleNullReferenceException

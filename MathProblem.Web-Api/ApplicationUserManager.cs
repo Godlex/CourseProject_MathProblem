@@ -12,12 +12,13 @@
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         private readonly ApplicationDbContext _context;
-        
+
         public ApplicationUserManager(IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor,
             IPasswordHasher<ApplicationUser> passwordHasher,
             IEnumerable<IUserValidator<ApplicationUser>> userValidators,
             IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer,
-            IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<ApplicationUser>> logger, ApplicationDbContext context) :
+            IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<ApplicationUser>> logger,
+            ApplicationDbContext context) :
             base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors,
                 services, logger)
         {
@@ -26,7 +27,11 @@
 
         public override async Task<IdentityResult> CreateAsync(ApplicationUser user)
         {
-            _context.Set<User>().Add(new User { RightAnswerCount = 0, TaskCreatedCount = 0, UserId = user.Id, PostTasks = new List<PostTask>(),UserName = user.UserName,AverageTaskRating = 0});
+            _context.Set<User>().Add(new User
+            {
+                RightAnswerCount = 0, TaskCreatedCount = 0, UserId = user.Id, PostTasks = new List<PostTask>(),
+                UserName = user.UserName, AverageTaskRating = 0
+            });
             return await base.CreateAsync(user);
         }
     }

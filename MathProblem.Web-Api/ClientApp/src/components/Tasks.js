@@ -1,21 +1,23 @@
 ﻿import InfiniteScroll from "react-infinite-scroll-component";
-import React from "react";
+import React, {useState} from "react";
 import authService from "./api-authorization/AuthorizeService";
 
-export function Tasks({userId,taskCreatedCount}) {
-    let hasMore=true;
-    let page=0;
-    
-    const fetchMoreTask = () => {
-        
+export function Tasks({userId, taskCreatedCount}) {
+
+    let [hasMore, setHasMore] = useState(true);
+    let [page, setPage] = useState(0);
+    const [tasks, setTasks] = useState([]);
+
+    const fetchMoreTask = async () => {
+
         const token = authService.getAccessToken();
-        
-        if (page >= taskCreatedCount ) {
-            hasMore = false;
-            return ;
+
+        if (page * 10 >= taskCreatedCount) {
+            setHasMore(false);
+            return;
         }
 
-        const response =  fetch("api/UserProfile/GetTasks/" + userId + "/" + page, {
+        const response = await fetch("api/UserProfile/GetTasks/" + userId + "/" + page, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -23,23 +25,28 @@ export function Tasks({userId,taskCreatedCount}) {
             }
         })
 
-        const data =  response.json;
+        const data = await response.json();
 
-        page++;
+        setTasks([...tasks, ...data.postTasks]);
+
+        setPage(++page)
     };
 
-    return (<InfiniteScroll
-        dataLength={10}
-        next={fetchMoreTask}
-        hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
-        endMessage={
-            <p style={{textAlign: "center"}}>
-                <b>Yay! You have seen it all</b>
-            </p>
-        }
-    >
-        <div>{null}</div>
-        <div>aaaa</div>
-    </InfiniteScroll>);
+    return (
+        <div>
+            <InfiniteScroll
+                dataLength={tasks.length}
+                next={fetchMoreTask}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                    <p style={{textAlign: "center"}}>
+                        <b>Yay! You have seen it all</b>
+                    </p>
+                }
+            >
+                <div>{tasks.map(value => (<div>{value.name}</div>))}</div>
+            </InfiniteScroll>
+        </div>
+    );
 }

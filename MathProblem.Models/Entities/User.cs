@@ -9,6 +9,7 @@ namespace MathProblem.Models.Entities
         public ICollection<PostTask> PostTasks { get; set; }
         public int RightAnswerCount { get; set; }
         public int TaskCreatedCount { get; set; }
-        public int? AverageTaskRating { get; set; }
+        public int? AverageTaskRating { get; set; } 
+        // TODO replace (int?) to (float?)
     }
 }
