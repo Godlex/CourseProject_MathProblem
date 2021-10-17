@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Home} from './Home';
-import {FetchData} from './FetchData';
 import {AddMathProblem} from './AddMathProblem';
-import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import {ApplicationPaths} from './components/api-authorization/ApiAuthorizationConstants';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
@@ -26,6 +24,7 @@ import "./translations/i18n"
 import i18n from "i18next";
 import {Translation} from "./translations/translation";
 import {ShowTask} from "./components/ShowTask";
+import authService from "./components/api-authorization/AuthorizeService";
 
 
 const ColorModeContext = React.createContext({
@@ -57,6 +56,8 @@ function ToggleThemeButton() {
 export function App() {
 
     const [language, setLanguage] = useState('ru');
+    const [isAuthenticated,setIsAuthenticated]= useState(false);
+    useEffect(()=>authService.isAuthenticated().then(x=>setIsAuthenticated(x)),[])
 
     const handleOnclick = (e) => {
         e.preventDefault();
@@ -72,9 +73,8 @@ export function App() {
                         <ToggleThemeButton/>
                         <Tabs indicatorColor="secondary" textColor="main" sx={{width: '80%'}}>
                             <Tab label={<Translation text={"button_home"}/>} to="/" component={Link}/>
-                            <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem"
-                                 component={Link}/>
-                            <Tab label="FetchData" to="/fetch-data" component={Link}/>
+                            {isAuthenticated && <Tab label={<Translation text={"button_add_mathProblem"}/>} to="/add-mathproblem"
+                                 component={Link}/>}
                         </Tabs>
                         <Select
                             variant="standard"
@@ -100,7 +100,6 @@ export function App() {
                         <Route exact path='/' component={Home}/>
                         <Route path='/task/:id' component={ShowTask} children={<ShowTask/>}/>
                         <Route path='/add-mathproblem' component={AddMathProblem}/>
-                        <AuthorizeRoute path='/fetch-data' component={FetchData}/>
                         <Route path={ApplicationPaths.ApiAuthorizationPrefix}
                                component={ApiAuthorizationRoutes}/>
                     </Switch>

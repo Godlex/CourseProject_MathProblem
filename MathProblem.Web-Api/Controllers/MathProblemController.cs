@@ -27,6 +27,13 @@
             var response = await _mediator.Send(new GetMathProblemById.Query(id));
             return response == null ? NotFound() : Ok(response);
         }
+
+        [HttpGet] //localhost/mathproblems/{page}
+        public async Task<IActionResult> GetAllMathProblem([FromQuery]int page)
+        {
+            var response = await _mediator.Send(new GetAllMathProblem.Query(page));
+            return response == null ? NotFound() : Ok(response);
+        }
         
         [HttpPost] //localhost/mathproblem
         [Authorize]

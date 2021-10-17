@@ -1,9 +1,8 @@
 ﻿import InfiniteScroll from "react-infinite-scroll-component";
 import React, {useState} from "react";
 import authService from "./api-authorization/AuthorizeService";
-import {Button, Paper, Rating} from "@mui/material";
+import {Paper, Rating} from "@mui/material";
 import {Translation} from "../translations/translation";
-import {ShowTask} from "./ShowTask";
 import {Link} from "react-router-dom";
 
 
