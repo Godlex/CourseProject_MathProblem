@@ -13,5 +13,10 @@
   text_copy_image_url:"Копировать url изображения",
   text_preview_image:"Предпросмотр изображения",
   text_Answer:"Ответ",
-  text_created_task:"Создано задач"
+  text_created_task:"Создано задач",
+  text_it_all:"Это всё",
+  text_task:"Задача: ",
+  text_view_more:"Посмотреть",
+  text_tags:"Тэги: ",
+  text_condition:"Условие "
 };

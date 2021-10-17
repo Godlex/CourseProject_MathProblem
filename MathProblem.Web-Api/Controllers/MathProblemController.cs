@@ -21,10 +21,10 @@
             _logger = logger;
         }
 
-        [HttpGet("/{id}")] //localhost/mathproblems/{id}
+        [HttpGet("{id}")] //localhost/mathproblems/{id}
         public async Task<IActionResult> GetMathProblemById(string id)
         {
-            var response = await _mediator.Send(new GetMathProblemByAuthorId.Query(id));
+            var response = await _mediator.Send(new GetMathProblemById.Query(id));
             return response == null ? NotFound() : Ok(response);
         }
         

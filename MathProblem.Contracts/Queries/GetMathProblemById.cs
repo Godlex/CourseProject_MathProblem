@@ -9,7 +9,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models.Entities;
 
-    public class GetMathProblemByAuthorId
+    public class GetMathProblemById
     {
         
         //Query
@@ -28,12 +28,12 @@
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var mathProblems = _context.Set<PostTask>().Where(x => x.AuthorId == request.Id);
-                return new Response(new List<PostTask>(mathProblems));
+                var mathProblem = await _context.Set<PostTask>().FirstOrDefaultAsync(x => x.PostTaskId == request.Id, cancellationToken: cancellationToken);
+                return new Response(mathProblem.Name,mathProblem.Rating,mathProblem.TaskCondition,mathProblem.Tags);
             }
         }
 
         //Response
-        public record Response(List<PostTask> Tasks);
+        public record Response(string Name,float Rating,string TaskCondition,string Tags);
     }
 }

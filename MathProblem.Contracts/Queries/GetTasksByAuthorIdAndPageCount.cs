@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using DAL;
     using MediatR;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
     using Models.Entities;
 

@@ -1,12 +1,18 @@
 ﻿import InfiniteScroll from "react-infinite-scroll-component";
 import React, {useState} from "react";
 import authService from "./api-authorization/AuthorizeService";
+import {Button, Paper, Rating} from "@mui/material";
+import {Translation} from "../translations/translation";
+import {ShowTask} from "./ShowTask";
+import {Link} from "react-router-dom";
+
 
 export function Tasks({userId, taskCreatedCount}) {
 
     let [hasMore, setHasMore] = useState(true);
     let [page, setPage] = useState(0);
     const [tasks, setTasks] = useState([]);
+    
 
     const fetchMoreTask = async () => {
 
@@ -31,7 +37,7 @@ export function Tasks({userId, taskCreatedCount}) {
 
         setPage(++page)
     };
-
+    
     return (
         <div>
             <InfiniteScroll
@@ -41,11 +47,20 @@ export function Tasks({userId, taskCreatedCount}) {
                 loader={<h4>Loading...</h4>}
                 endMessage={
                     <p style={{textAlign: "center"}}>
-                        <b>Yay! You have seen it all</b>
+                        <b><Translation text={"text_it_all"}/></b>
                     </p>
                 }
             >
-                <div>{tasks.map(value => (<div>{value.name}</div>))}</div>
+                <div>
+                    {tasks.map(value => (
+                        <Paper elevation={3}>
+                            <Translation text={"text_task"}/>{value.name} <Rating name="read-only"
+                                                                                  value={value.rating}
+                                                                                  precision={0.5} readOnly/>
+                            <div> <Translation text={"text_tags"}/>{value.tags}</div>
+                            <Link underline="hover" to={"/task/"+value.postTaskId} ><Translation text={"text_view_more"}/></Link>
+                        </Paper>))}
+                </div>
             </InfiniteScroll>
         </div>
     );

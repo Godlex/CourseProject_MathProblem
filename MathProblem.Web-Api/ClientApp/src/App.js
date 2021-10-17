@@ -25,6 +25,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import "./translations/i18n"
 import i18n from "i18next";
 import {Translation} from "./translations/translation";
+import {ShowTask} from "./components/ShowTask";
 
 
 const ColorModeContext = React.createContext({
@@ -97,6 +98,7 @@ export function App() {
                 >
                     <Switch>
                         <Route exact path='/' component={Home}/>
+                        <Route path='/task/:id' component={ShowTask} children={<ShowTask/>}/>
                         <Route path='/add-mathproblem' component={AddMathProblem}/>
                         <AuthorizeRoute path='/fetch-data' component={FetchData}/>
                         <Route path={ApplicationPaths.ApiAuthorizationPrefix}
